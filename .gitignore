@@ -1,4 +1,6 @@
+# files to ignore when making commits
 .vscode
-__pycache__
+/backend/__pycache__
 /frontend/node_modules
 .DS_Store
+/backend/.DS_Store
