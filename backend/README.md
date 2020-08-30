@@ -66,13 +66,13 @@ One note before you delve into your tasks: for each endpoint you are expected to
 8. Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions. 
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
-REVIEW_COMMENT
-```
+## API documentation
 
 GET '/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
+```
 {'1' : "Science",
 '2' : "Art",
 '3' : "Geography",
@@ -81,7 +81,93 @@ GET '/categories'
 '6' : "Sports"}
 
 ```
+GET '/categories/int:category_id/questions'
 
+- Fetches a dictionary of questions
+- Request Argument: category id
+- Returns: A list of questions filter by category ID key: value pairs. 
+
+```
+{
+    "current_category": 5,
+    "questions": [
+        {
+            "answer": "Apollo 13",
+            "category": 5,
+            "difficulty": 4,
+            "id": 2,
+            "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+        },...
+```
+POST '/questions'
+
+- Add a new question to the repository of available questions.
+- Request Argument:question, answer, category, difficulty for the new question
+- Returns: A list of question the new question, success ,total_questions
+```
+{
+  "created": 26, 
+  "success": true
+}
+```
+GET \questions?page=<page_number> 
+- Fetches a paginated dictionary of questions of all available categories
+- Request Argument: optional
+```
+{
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
+    "current_category": null,
+    "questions": [
+        {
+            "answer": "Agra",
+            "category": 3,
+            "difficulty": 2,
+            "id": 15,
+            "question": "The Taj Mahal is located in which Indian city?"
+        },
+        {
+            "answer": "Escher",
+            "category": 2,
+            "difficulty": 1,
+            "id": 16,
+            "question": "Which Dutch graphic artist–initials M C was a creator of optical illusions?"
+        },...
+  ```
+POST /questions/search 
+- Fetches all questions where a substring matches the search term
+- Request Argument: search term
+
+DELETE /questions/<question_id> 
+- Delete an existing questions from the repository of available questions
+- Request Argument: question_id
+```
+{
+  "deleted": "32", 
+  "success": true
+}
+ ```      
+POST /quizzes 
+- Fetches one random question within a specified category.
+- Request Argument: previous_questions and quiz_category
+```
+{
+  "question": {
+    "answer": "The Liver", 
+    "category": 1, 
+    "difficulty": 4, 
+    "id": 20, 
+    "question": "What is the heaviest organ in the human body?"
+  }, 
+  "success": true
+}
+```
 
 ## Testing
 To run the tests, run
